@@ -23,33 +23,37 @@ class LoginRepository {
     http.StreamedResponse response;
     try {
       response = await request.send();
-      String body = await response.stream.bytesToString();
-      print(body);
     } catch (e) {
       print("error internet");
       return SubmitLoginInternetError(message: "Periksa Koneksi Internet Anda");
     }
-    return SubmitLoginServerError(message: "error");
 
-    // if (response.statusCode == 200) {
-    //   String body = await response.stream.bytesToString();
-    //   var submitLoginData = json.decode(body);
-    //   late int id;
-    //   try {
-    //     id = submitLoginData['records'][0]['id'];
-    //   } catch (e) {
-    //     String message = "Terjadi Kesalahan, Periksa kembali data anda";
-    //     return SubmitLoginClientError(message: message);
-    //   }
-    //   StorageUtils.setUserId(id.toString());
-    //   return SubmitLoginSuccess();
-    // } else if (response.statusCode >= 402 && response.statusCode < 500) {
-    //   String message = "Terjadi Kesalahan, Periksa kelengkapan data anda";
-    //   return SubmitLoginClientError(message: message);
-    // } else {
-    //   String message = "Server Error";
-    //   return SubmitLoginServerError(message: message);
-    // }
+    if (response.statusCode == 200) {
+      print("succes internet");
+      String body = await response.stream.bytesToString();
+      var submitLoginData = json.decode(body);
+      late int id;
+      try {
+        id = submitLoginData['records'][0]['id'];
+      } catch (e) {
+        String message = "Terjadi Kesalahan, Periksa kembali data anda";
+
+        print(message);
+        return SubmitLoginClientError(message: message);
+      }
+      StorageUtils.setUserId(id.toString());
+      return SubmitLoginSuccess();
+    } else if (response.statusCode >= 402 && response.statusCode < 500) {
+      String message = "Terjadi Kesalahan, Periksa kelengkapan data anda";
+
+      print(message);
+      return SubmitLoginClientError(message: message);
+    } else {
+      String message = "Server Error";
+
+      print(message);
+      return SubmitLoginServerError(message: message);
+    }
   }
 
   Future<GetLoginState> requestGetLogin({
