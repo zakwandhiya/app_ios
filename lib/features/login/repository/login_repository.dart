@@ -29,6 +29,7 @@ class LoginRepository {
       print("error internet");
       return SubmitLoginInternetError(message: "Periksa Koneksi Internet Anda");
     }
+    return SubmitLoginServerError(message: "error");
 
     // if (response.statusCode == 200) {
     //   String body = await response.stream.bytesToString();
