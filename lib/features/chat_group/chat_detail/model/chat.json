@@ -1,0 +1,32 @@
+{
+  "records": [
+      {
+          "id": 8,
+          "sender_id": 3,
+          "receiver_id": 1,
+          "konten": "alsdfjlh asdflj",
+          "date_created": "2023-08-21 14:49:27"
+      },
+      {
+          "id": 9,
+          "sender_id": 3,
+          "receiver_id": 1,
+          "konten": ";ljilkj",
+          "date_created": "2023-08-21 14:49:38"
+      },
+      {
+          "id": 10,
+          "sender_id": 1,
+          "receiver_id": 3,
+          "konten": ";ljilkj",
+          "date_created": "2023-08-21 14:49:46"
+      },
+      {
+          "id": 11,
+          "sender_id": 1,
+          "receiver_id": 3,
+          "konten": ";lji adfrb",
+          "date_created": "2023-08-21 14:49:52"
+      }
+  ]
+}

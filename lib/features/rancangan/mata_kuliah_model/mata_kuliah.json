@@ -1,0 +1,13 @@
+{
+  "records": [
+      {
+          "id": 4,
+          "date_created": "2023-09-03 20:25:14",
+          "date_modified": "2023-09-03 20:25:35",
+          "nama_mata_kuliah": "Matematika Komputasi Lanjut",
+          "sks": 4,
+          "nama_mata_kuliah_prasyarat": "Matematika Komputasi",
+          "id_mata_kuliah_prasyarat": 3 
+      }
+  ]
+}

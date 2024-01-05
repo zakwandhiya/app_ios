@@ -1,0 +1,21 @@
+{
+  "id": 1,
+  "user_id": 1,
+  "date_created": "2023-08-21 10:33:54",
+  "date_modified": "2023-08-21 10:38:20",
+  "target_wisuda_status": false,
+  "target_wisuda_pelaksanaan": "-",
+  "target_skripsi_status": false,
+  "target_skripsi_praproposal": "-",
+  "target_skripsi_proposal": "-",
+  "target_skripsi_pengerjaan": "-",
+  "target_skripsi_semhas_sidang": "-",
+  "target_pkl_status": false,
+  "target_pkl_pendaftaran": "-",
+  "target_pkl_pelaksaan": "-",
+  "kuliah_status": true,
+  "kuliah_target_ipk": 3.1,
+  "kuliah_catatan_1": "-",
+  "kuliah_catatan_2": "-",
+  "kuliah_catatan_3": "-"
+}
