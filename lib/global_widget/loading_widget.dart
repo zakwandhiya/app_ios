@@ -28,6 +28,7 @@ class _LoadingWidgetState extends State<LoadingWidget> {
             padding: EdgeInsets.all(16.0),
             child: LinearProgressIndicator(),
           ),
+          const SizedBox(height: 48),
         ],
       ),
     );

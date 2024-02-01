@@ -1,6 +1,7 @@
 import 'package:bimo_app/features/milestone/milestone_detail/model/get_milestone_detail_model.dart';
 import 'package:bimo_app/features/milestone/milestone_edit/bloc/milestone_edit_bloc.dart';
 import 'package:bimo_app/features/milestone/milestone_edit/bloc/milestone_edit_state.dart';
+import 'package:bimo_app/features/milestone/milestone_edit/page/indicator_widget.dart';
 import 'package:bimo_app/features/milestone/milestone_edit/page/milestone_edit_pkl_page.dart';
 import 'package:bimo_app/global_widget/global_app_bar.dart';
 import 'package:bimo_app/global_widget/input_decoration.dart';
@@ -91,7 +92,7 @@ class _MilestoneEditPageState extends State<MilestoneEditPage> {
         const SizedBox(height: 9),
         TextFormField(
           decoration: globalInputDecoration.copyWith(
-            hintText: "Enter Your $label",
+            hintText: "Tambahkan $label",
           ),
           initialValue: initialValue,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -120,55 +121,64 @@ class _MilestoneEditPageState extends State<MilestoneEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: "Catatan Target",
-        subtitle: "Form PA-01",
-        canPop: true,
-        actions: [
-          GlobalAppBarActionsButton(
-            iconData: Icons.check,
-            onPressed: submitProfileEditResponseModel,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: "Catatan Target",
+            subtitle: "Form PA-01",
+            canPop: true,
+            actions: [
+              GlobalAppBarActionsButton(
+                iconData: Icons.check,
+                onPressed: submitProfileEditResponseModel,
+              ),
+            ],
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  "assets/target_kuliah_dengan_baik.png",
-                  width: MediaQuery.of(context).size.width - 100,
-                  fit: BoxFit.fitWidth,
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Form(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IndicatorWidget(number: 1),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Image.asset(
+                      "assets/target_kuliah_dengan_baik.png",
+                      width: MediaQuery.of(context).size.width - 100,
+                      fit: BoxFit.fitWidth,
+                    ),
+                    inputFieldConstruct(
+                        label: "Kuliah dengan IPK ≥",
+                        initialValue: widget.milestoneDetailModel.kuliahTargetIpk.toString(),
+                        textInputType: TextInputType.number,
+                        onSaved: (value) => [widget.milestoneDetailModel.kuliahTargetIpk = double.parse(value!)]),
+                    inputFieldConstruct(
+                        label: "Catatan Target 1",
+                        initialValue: widget.milestoneDetailModel.kuliahCatatan_1,
+                        textInputType: TextInputType.emailAddress,
+                        onSaved: (value) => [widget.milestoneDetailModel.kuliahCatatan_1 = value!]),
+                    inputFieldConstruct(
+                        label: "Catatan Target 2",
+                        initialValue: widget.milestoneDetailModel.kuliahCatatan_2,
+                        textInputType: TextInputType.emailAddress,
+                        onSaved: (value) => [widget.milestoneDetailModel.kuliahCatatan_2 = value!]),
+                    inputFieldConstruct(
+                        label: "Catatan Target 3",
+                        initialValue: widget.milestoneDetailModel.kuliahCatatan_3,
+                        textInputType: TextInputType.emailAddress,
+                        onSaved: (value) => [widget.milestoneDetailModel.kuliahCatatan_3 = value!]),
+                  ],
                 ),
-                inputFieldConstruct(
-                    label: "Kuliah dengan IPK ≥",
-                    initialValue: widget.milestoneDetailModel.kuliahTargetIpk.toString(),
-                    textInputType: TextInputType.number,
-                    onSaved: (value) => [widget.milestoneDetailModel.kuliahTargetIpk = double.parse(value!)]),
-                inputFieldConstruct(
-                    label: "Catatan Target 1",
-                    initialValue: widget.milestoneDetailModel.kuliahCatatan_1,
-                    textInputType: TextInputType.emailAddress,
-                    onSaved: (value) => [widget.milestoneDetailModel.kuliahCatatan_1 = value!]),
-                inputFieldConstruct(
-                    label: "Catatan Target 2",
-                    initialValue: widget.milestoneDetailModel.kuliahCatatan_2,
-                    textInputType: TextInputType.emailAddress,
-                    onSaved: (value) => [widget.milestoneDetailModel.kuliahCatatan_2 = value!]),
-                inputFieldConstruct(
-                    label: "Catatan Target 3",
-                    initialValue: widget.milestoneDetailModel.kuliahCatatan_3,
-                    textInputType: TextInputType.emailAddress,
-                    onSaved: (value) => [widget.milestoneDetailModel.kuliahCatatan_3 = value!]),
-              ],
+              ),
             ),
           ),
         ),

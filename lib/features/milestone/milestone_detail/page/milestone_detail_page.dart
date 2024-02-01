@@ -118,248 +118,253 @@ class _MilestoneDetailPageState extends State<MilestoneDetailPage> {
   @override
   Widget build(BuildContext context) {
     const double height = 150;
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: "Biodata Mahasiswa",
-        subtitle: "Form PA-00",
-        canPop: true,
-        actions: [
-          SizedBox(
-            height: 42,
-            child: TextButton(
-              style: TextButton.styleFrom(
-                textStyle: CustomTextTheme.button.copyWith(color: CustomColors.blueSecondary),
-              ),
-              onPressed: _navigateToMilestoneEdit,
-              child: const Text("Update"),
-            ),
-          ),
-        ],
-      ),
-      body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: StreamBuilder<GetMilestoneDetailState>(
-            initialData: milestoneDetailBloc.getInitialMilestoneDetailState,
-            stream: milestoneDetailBloc.getMilestoneDetailState,
-            builder: (context, snapshot) {
-              if (snapshot.data is GetMilestoneDetailLoading) {
-                return const LoadingWidget();
-              } else if (snapshot.data is GetMilestoneDetailClientError) {
-                return const UnderMaintenanceWidget();
-              } else if (snapshot.data is GetMilestoneDetailInternetError) {
-                return const NoInternetWidget();
-              } else if (snapshot.data is GetMilestoneDetailSuccess) {
-                data = (snapshot.data as GetMilestoneDetailSuccess).getMilestoneDetailResponseModel;
-                return Container(
-                  padding: const EdgeInsets.only(left: 20, right: 16, top: 16, bottom: 16),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 40,
-                        height: height,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: height,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                    data.targetWisudaStatus ? "assets/target_wisuda_on.png" : "assets/target_wisuda_off.png",
-                                    width: 80,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      width: 3,
-                                      color: data.targetSkripsiStatus ? CustomColors.blueSecondary : CustomColors.blackTeritiary,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 14),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 18),
-                            Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 16),
-                                  Text(
-                                    "Target Wisuda",
-                                    style: CustomTextTheme.subtitle2.copyWith(color: CustomColors.blackMamba),
-                                  ),
-                                  const SizedBox(height: 14),
-                                  Text(
-                                    "Pelaksanaan : ${data.targetWisudaPelaksanaan}",
-                                    style: CustomTextTheme.caption.copyWith(color: CustomColors.blackSecondary),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 40,
-                        height: height,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: height,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                    data.targetSkripsiStatus ? "assets/target_skripsi_on.png" : "assets/target_skripsi_off.png",
-                                    width: 80,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      width: 3,
-                                      color: data.targetPklStatus ? CustomColors.blueSecondary : CustomColors.blackTeritiary,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 14),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 18),
-                            Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 16),
-                                  Text(
-                                    "Target Skripsi",
-                                    style: CustomTextTheme.subtitle2.copyWith(color: CustomColors.blackMamba),
-                                  ),
-                                  const SizedBox(height: 14),
-                                  Text(
-                                    "Pra-Proposal : ${data.targetSkripsiPraproposal}\nProposal : ${data.targetSkripsiProposal}\nPengerjaan : ${data.targetSkripsiPengerjaan}\nSemhas/Sidang : ${data.targetSkripsiSemhasSidang}\n",
-                                    style: CustomTextTheme.caption.copyWith(color: CustomColors.blackSecondary),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 40,
-                        height: height,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: height,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                    data.targetPklStatus ? "assets/target_pkl_on.png" : "assets/target_pkl_off.png",
-                                    width: 80,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                  Expanded(
-                                    child: Container(
-                                      width: 3,
-                                      color: data.kuliahStatus ? CustomColors.blueSecondary : CustomColors.blackTeritiary,
-                                    ),
-                                  ),
-                                  const SizedBox(height: 14),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 18),
-                            Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 16),
-                                  Text(
-                                    "Target PKL/KKN-P",
-                                    style: CustomTextTheme.subtitle2.copyWith(color: CustomColors.blackMamba),
-                                  ),
-                                  const SizedBox(height: 14),
-                                  Text(
-                                    "Pendaftaran : ${data.targetPklPendaftaran}\nPelaksanaan : ${data.targetPklPelaksaan}",
-                                    style: CustomTextTheme.caption.copyWith(color: CustomColors.blackSecondary),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width - 40,
-                        height: height,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: height,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Image.asset(
-                                    data.kuliahStatus ? "assets/target_kuliah_on.png" : "assets/target_kuliah_off.png",
-                                    width: 80,
-                                    fit: BoxFit.fitWidth,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 18),
-                            Container(
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  const SizedBox(height: 16),
-                                  Text(
-                                    "Kuliah dengan IPK  ≥ ${data.kuliahTargetIpk}",
-                                    maxLines: 2,
-                                    style: CustomTextTheme.subtitle2.copyWith(color: CustomColors.blackMamba),
-                                  ),
-                                  const SizedBox(height: 14),
-                                  Text(
-                                    "1. ${data.kuliahCatatan_1}\n2. ${data.kuliahCatatan_2}\n3. ${data.kuliahCatatan_3}",
-                                    style: CustomTextTheme.caption.copyWith(color: CustomColors.blackSecondary),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: "Biodata Mahasiswa",
+            subtitle: "Form PA-00",
+            canPop: true,
+            actions: [
+              SizedBox(
+                height: 42,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    textStyle: CustomTextTheme.button.copyWith(color: CustomColors.blueSecondary),
                   ),
-                );
-              }
+                  onPressed: _navigateToMilestoneEdit,
+                  child: const Text("Update"),
+                ),
+              ),
+            ],
+          ),
+          body: RefreshIndicator(
+            key: _refreshIndicatorKey,
+            onRefresh: _refresh,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: StreamBuilder<GetMilestoneDetailState>(
+                initialData: milestoneDetailBloc.getInitialMilestoneDetailState,
+                stream: milestoneDetailBloc.getMilestoneDetailState,
+                builder: (context, snapshot) {
+                  if (snapshot.data is GetMilestoneDetailLoading) {
+                    return const LoadingWidget();
+                  } else if (snapshot.data is GetMilestoneDetailClientError) {
+                    return const UnderMaintenanceWidget();
+                  } else if (snapshot.data is GetMilestoneDetailInternetError) {
+                    return const NoInternetWidget();
+                  } else if (snapshot.data is GetMilestoneDetailSuccess) {
+                    data = (snapshot.data as GetMilestoneDetailSuccess).getMilestoneDetailResponseModel;
+                    return Container(
+                      padding: const EdgeInsets.only(left: 20, right: 16, top: 16, bottom: 16),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 40,
+                            height: height,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: height,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        data.targetWisudaStatus ? "assets/target_wisuda_on.png" : "assets/target_wisuda_off.png",
+                                        width: 80,
+                                        fit: BoxFit.fitWidth,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          width: 3,
+                                          color: data.targetSkripsiStatus ? CustomColors.blueSecondary : CustomColors.blackTeritiary,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 14),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 18),
+                                Container(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 16),
+                                      Text(
+                                        "Target Wisuda",
+                                        style: CustomTextTheme.subtitle2.copyWith(color: CustomColors.blackMamba),
+                                      ),
+                                      const SizedBox(height: 14),
+                                      Text(
+                                        "Pelaksanaan : ${data.targetWisudaPelaksanaan}",
+                                        style: CustomTextTheme.caption.copyWith(color: CustomColors.blackSecondary),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 40,
+                            height: height,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: height,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        data.targetSkripsiStatus ? "assets/target_skripsi_on.png" : "assets/target_skripsi_off.png",
+                                        width: 80,
+                                        fit: BoxFit.fitWidth,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          width: 3,
+                                          color: data.targetPklStatus ? CustomColors.blueSecondary : CustomColors.blackTeritiary,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 14),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 18),
+                                Container(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 16),
+                                      Text(
+                                        "Target Skripsi",
+                                        style: CustomTextTheme.subtitle2.copyWith(color: CustomColors.blackMamba),
+                                      ),
+                                      const SizedBox(height: 14),
+                                      Text(
+                                        "Pra-Proposal : ${data.targetSkripsiPraproposal}\nProposal : ${data.targetSkripsiProposal}\nPengerjaan : ${data.targetSkripsiPengerjaan}\nSemhas/Sidang : ${data.targetSkripsiSemhasSidang}\n",
+                                        style: CustomTextTheme.caption.copyWith(color: CustomColors.blackSecondary),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 40,
+                            height: height,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: height,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        data.targetPklStatus ? "assets/target_pkl_on.png" : "assets/target_pkl_off.png",
+                                        width: 80,
+                                        fit: BoxFit.fitWidth,
+                                      ),
+                                      Expanded(
+                                        child: Container(
+                                          width: 3,
+                                          color: data.kuliahStatus ? CustomColors.blueSecondary : CustomColors.blackTeritiary,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 14),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 18),
+                                Container(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 16),
+                                      Text(
+                                        "Target PKL/KKN-P",
+                                        style: CustomTextTheme.subtitle2.copyWith(color: CustomColors.blackMamba),
+                                      ),
+                                      const SizedBox(height: 14),
+                                      Text(
+                                        "Pendaftaran : ${data.targetPklPendaftaran}\nPelaksanaan : ${data.targetPklPelaksaan}",
+                                        style: CustomTextTheme.caption.copyWith(color: CustomColors.blackSecondary),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width - 40,
+                            height: height,
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  height: height,
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Image.asset(
+                                        data.kuliahStatus ? "assets/target_kuliah_on.png" : "assets/target_kuliah_off.png",
+                                        width: 80,
+                                        fit: BoxFit.fitWidth,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 18),
+                                Container(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      const SizedBox(height: 16),
+                                      Text(
+                                        "Kuliah dengan IPK  ≥ ${data.kuliahTargetIpk}",
+                                        maxLines: 2,
+                                        style: CustomTextTheme.subtitle2.copyWith(color: CustomColors.blackMamba),
+                                      ),
+                                      const SizedBox(height: 14),
+                                      Text(
+                                        "1. ${data.kuliahCatatan_1}\n2. ${data.kuliahCatatan_2}\n3. ${data.kuliahCatatan_3}",
+                                        style: CustomTextTheme.caption.copyWith(color: CustomColors.blackSecondary),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }
 
-              return const UnknownErrorWidget();
-            },
+                  return const UnknownErrorWidget();
+                },
+              ),
+            ),
           ),
         ),
       ),

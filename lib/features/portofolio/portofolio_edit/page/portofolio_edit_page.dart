@@ -105,7 +105,7 @@ class _PortofolioEditPageState extends State<PortofolioEditPage> {
         const SizedBox(height: 9),
         TextFormField(
           decoration: globalInputDecoration.copyWith(
-            hintText: "Enter Your $label",
+            hintText: "Tambahkan $label",
           ),
           initialValue: initialValue,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -149,67 +149,72 @@ class _PortofolioEditPageState extends State<PortofolioEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: widget.add ? "Tambah Portofolio" : "Ubah Portofolio",
-        subtitle: "Form PA-03",
-        canPop: true,
-        actions: widget.add
-            ? [
-                GlobalAppBarActionsButton(
-                  iconData: Icons.check,
-                  onPressed: addProfileEditResponseModel,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: widget.add ? "Tambah Portofolio" : "Ubah Portofolio",
+            subtitle: "Form PA-03",
+            canPop: true,
+            actions: widget.add
+                ? [
+                    GlobalAppBarActionsButton(
+                      iconData: Icons.check,
+                      onPressed: addProfileEditResponseModel,
+                    ),
+                  ]
+                : [
+                    GlobalAppBarActionsButton(
+                      iconData: Icons.check,
+                      onPressed: updateProfileEditResponseModel,
+                    ),
+                  ],
+          ),
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Form(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputFieldConstruct(
+                        label: "Nama Kegiatan",
+                        initialValue: widget.portofolioDetailModel.namaKegiatan,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.portofolioDetailModel.namaKegiatan = value!]),
+                    inputFieldConstruct(
+                        label: "Kategori Kegiatan",
+                        initialValue: widget.portofolioDetailModel.kategori,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.portofolioDetailModel.kategori = value!]),
+                    inputFieldConstruct(
+                        label: "Jabatan",
+                        initialValue: widget.portofolioDetailModel.jabatan,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.portofolioDetailModel.jabatan = value!]),
+                    inputFieldConstruct(
+                        label: "Penyelenggara",
+                        initialValue: widget.portofolioDetailModel.penyelenggara,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.portofolioDetailModel.penyelenggara = value!]),
+                    inputFieldConstruct(
+                        label: "Tanggal Mulai",
+                        initialValue: widget.portofolioDetailModel.tanggalMulai,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.portofolioDetailModel.tanggalMulai = value!]),
+                    inputFieldConstruct(
+                        label: "Tanggal Selesai",
+                        initialValue: widget.portofolioDetailModel.tanggalSelesai,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.portofolioDetailModel.tanggalSelesai = value!]),
+                  ],
                 ),
-              ]
-            : [
-                GlobalAppBarActionsButton(
-                  iconData: Icons.check,
-                  onPressed: updateProfileEditResponseModel,
-                ),
-              ],
-      ),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                inputFieldConstruct(
-                    label: "Nama Kegiatan",
-                    initialValue: widget.portofolioDetailModel.namaKegiatan,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.portofolioDetailModel.namaKegiatan = value!]),
-                inputFieldConstruct(
-                    label: "Kategori Kegiatan",
-                    initialValue: widget.portofolioDetailModel.kategori,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.portofolioDetailModel.kategori = value!]),
-                inputFieldConstruct(
-                    label: "Jabatan",
-                    initialValue: widget.portofolioDetailModel.jabatan,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.portofolioDetailModel.jabatan = value!]),
-                inputFieldConstruct(
-                    label: "Penyelenggara",
-                    initialValue: widget.portofolioDetailModel.penyelenggara,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.portofolioDetailModel.penyelenggara = value!]),
-                inputFieldConstruct(
-                    label: "Tanggal Mulai",
-                    initialValue: widget.portofolioDetailModel.tanggalMulai,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.portofolioDetailModel.tanggalMulai = value!]),
-                inputFieldConstruct(
-                    label: "Tanggal Selesai",
-                    initialValue: widget.portofolioDetailModel.tanggalSelesai,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.portofolioDetailModel.tanggalSelesai = value!]),
-              ],
+              ),
             ),
           ),
         ),

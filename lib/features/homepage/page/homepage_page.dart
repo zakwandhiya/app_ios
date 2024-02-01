@@ -1,9 +1,15 @@
+import 'package:bimo_app/features/eskalasi/eskalasi_page.dart';
 import 'package:bimo_app/features/homepage/widget/academic_menu_button_widget.dart';
 import 'package:bimo_app/features/homepage/widget/menu_button_widget.dart';
+import 'package:bimo_app/features/instruksi/instruksi_page.dart';
+import 'package:bimo_app/features/ipk_sks/ipk_sks_main_page/ipk_sks_main_view.dart';
+import 'package:bimo_app/features/kalender_akademik/kalender_akademik_main_page.dart';
 import 'package:bimo_app/features/logbook/logbook_list/page/logbook_list_page.dart';
 import 'package:bimo_app/features/milestone/milestone_detail/page/milestone_detail_page.dart';
 import 'package:bimo_app/features/portofolio/portofolio_list/page/portofolio_list_page.dart';
 import 'package:bimo_app/features/rancangan/rancangan_main_page/rancangan_main_view.dart';
+import 'package:bimo_app/features/ruangan/ruangan_main_view.dart';
+import 'package:bimo_app/features/telp/telp_page.dart';
 import 'package:bimo_app/global_widget/custom_badge_widget.dart';
 import 'package:bimo_app/global_widget/error_widget.dart';
 import 'package:bimo_app/global_widget/loading_widget.dart';
@@ -72,50 +78,65 @@ class _HomepagePageState extends State<HomepagePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: StreamBuilder<GetHomepageState>(
-            initialData: homepageBloc.getInitialHomepageState,
-            stream: homepageBloc.getHomepageState,
-            builder: (context, snapshot) {
-              if (snapshot.data is GetHomepageLoading) {
-                return const LoadingWidget();
-              } else if (snapshot.data is GetHomepageClientError) {
-                return const UnderMaintenanceWidget();
-              } else if (snapshot.data is GetHomepageSuccess) {
-                GetHomepageResponseModel getHomepageResponseModel = (snapshot.data as GetHomepageSuccess).getHomepageResponseModel;
-                return Column(
-                  children: [
-                    Stack(
+    return Container(
+      // color: Colors.white,
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: [
+            Color(0xff3165A3),
+            Color(0xff51A0AB),
+          ],
+        ),
+      ),
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          body: RefreshIndicator(
+            key: _refreshIndicatorKey,
+            onRefresh: _refresh,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: StreamBuilder<GetHomepageState>(
+                initialData: homepageBloc.getInitialHomepageState,
+                stream: homepageBloc.getHomepageState,
+                builder: (context, snapshot) {
+                  if (snapshot.data is GetHomepageLoading) {
+                    return const LoadingWidget();
+                  } else if (snapshot.data is GetHomepageClientError) {
+                    return const UnderMaintenanceWidget();
+                  } else if (snapshot.data is GetHomepageSuccess) {
+                    GetHomepageResponseModel getHomepageResponseModel = (snapshot.data as GetHomepageSuccess).getHomepageResponseModel;
+                    return Column(
                       children: [
-                        backgroundWidget(context),
-                        Column(
+                        Stack(
                           children: [
-                            homepageUpper(getHomepageResponseModel),
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              height: 26,
-                              decoration: const BoxDecoration(
-                                  // borderRadius: BorderRadius.circular(4),
-                                  borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-                                  color: Colors.white),
+                            backgroundWidget(context),
+                            Column(
+                              children: [
+                                homepageUpper(getHomepageResponseModel),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 26,
+                                  decoration: const BoxDecoration(
+                                      // borderRadius: BorderRadius.circular(4),
+                                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                                      color: Colors.white),
+                                ),
+                              ],
                             ),
                           ],
                         ),
+                        menuWidget(context),
                       ],
-                    ),
-                    menuWidget(context),
-                  ],
-                );
-              }
+                    );
+                  }
 
-              return const UnknownErrorWidget();
-            },
+                  return const UnknownErrorWidget();
+                },
+              ),
+            ),
           ),
         ),
       ),
@@ -148,7 +169,9 @@ class _HomepagePageState extends State<HomepagePage> {
       MenuData(
         text: "IPK & SKS",
         imgUri: "assets/progres_akademik_ipk.png",
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const IpkSksMainPage()));
+        },
       ),
       MenuData(
         text: "Logbook",
@@ -160,7 +183,9 @@ class _HomepagePageState extends State<HomepagePage> {
       MenuData(
         text: "Eskalasi",
         imgUri: "assets/progres_akademik_eskalasi.png",
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const EskalasiPage()));
+        },
       ),
     ];
 
@@ -169,25 +194,33 @@ class _HomepagePageState extends State<HomepagePage> {
         textFirst: "Instruksi",
         textSecond: "Bimbingan",
         imgUri: "assets/instruksi_bimbingan.png",
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const InstruksiPage()));
+        },
       ),
       HomepageAcademicMenuButtonWidget(
         textFirst: "Kalender",
         textSecond: "Akademik",
         imgUri: "assets/kalender_akademik.png",
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const KalenderAkademikMainPage()));
+        },
       ),
       HomepageAcademicMenuButtonWidget(
         textFirst: "Ruangan",
         textSecond: "Filkom",
         imgUri: "assets/ruangan_filkom.png",
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const RuanganMainPage()));
+        },
       ),
       HomepageAcademicMenuButtonWidget(
         textFirst: "Kontak",
         textSecond: "Bantuan",
         imgUri: "assets/kontak_bantuan.png",
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => const TelpPage()));
+        },
       ),
     ];
 
@@ -249,7 +282,7 @@ class _HomepagePageState extends State<HomepagePage> {
 
   Container homepageUpper(GetHomepageResponseModel getHomepageResponseModel) {
     return Container(
-      padding: const EdgeInsets.only(top: 36, left: 16, right: 16, bottom: 26),
+      padding: const EdgeInsets.only(top: 26, left: 16, right: 16, bottom: 26),
       child: Column(
         children: [
           Row(

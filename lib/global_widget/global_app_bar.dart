@@ -57,10 +57,10 @@ class GlobalAppBar2 extends PreferredSize {
     List<Widget>? actions,
   }) : super(
           key: key,
-          preferredSize: const Size.fromHeight(80),
+          preferredSize: const Size.fromHeight(50),
           child: Column(
             children: [
-              const SizedBox(height: 34),
+              // const SizedBox(height: 34),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -132,8 +132,8 @@ class GlobalAppBar2 extends PreferredSize {
         );
 }
 
-class GlobalAppBar2WithTabView extends PreferredSize {
-  GlobalAppBar2WithTabView({
+class GlobalAppBar2WithTabVie extends PreferredSize {
+  GlobalAppBar2WithTabVie({
     Key? key,
     required BuildContext context,
     bool canPop = false,
@@ -142,10 +142,10 @@ class GlobalAppBar2WithTabView extends PreferredSize {
     List<Widget>? actions,
   }) : super(
           key: key,
-          preferredSize: const Size.fromHeight(70),
+          preferredSize: const Size.fromHeight(50),
           child: Column(
             children: [
-              const SizedBox(height: 34),
+              // const SizedBox(height: 34),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -251,10 +251,9 @@ class GlobalAppBar1 extends PreferredSize {
     List<Widget>? actions,
   }) : super(
           key: key,
-          preferredSize: const Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(50),
           child: Column(
             children: [
-              const SizedBox(height: 34),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,

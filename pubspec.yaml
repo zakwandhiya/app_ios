@@ -98,6 +98,7 @@ flutter:
   - assets/icon_tooltips.png
   - assets/icon_positif.png
   - assets/icon_negatif.png
+  - assets/gedung.png
   - assets/error_under_maintenance.png
   - assets/error_search_empty.png
   - assets/error_not_found.png
@@ -136,37 +137,37 @@ flutter:
   - assets/icon/volume-off.svg
   - assets/icon/volume-up.svg
 
-  # fonts: 
-  #   - family: Montserrat
-  #     fonts:
-  #       - asset: fonts/Montserrat-Black.ttf
-  #       - asset: fonts/Montserrat-BlackItalic.ttf
-  #       - asset: fonts/Montserrat-Bold.ttf
-  #       - asset: fonts/Montserrat-BoldItalic.ttf
-  #       - asset: fonts/Montserrat-ExtraBold.ttf
-  #       - asset: fonts/Montserrat-ExtraBoldItalic.ttf
-  #       - asset: fonts/Montserrat-ExtraLight.ttf
-  #       - asset: fonts/Montserrat-ExtraLightItalic.ttf
-  #       - asset: fonts/Montserrat-Italic.ttf
-  #       - asset: fonts/Montserrat-Light.ttf
-  #       - asset: fonts/Montserrat-LightItalic.ttf
-  #       - asset: fonts/Montserrat-Medium.ttf
-  #       - asset: fonts/Montserrat-MediumItalic.ttf
-  #       - asset: fonts/Montserrat-Regular.ttf
-  #       - asset: fonts/Montserrat-SemiBold.ttf
-  #       - asset: fonts/Montserrat-SemiBoldItalic.ttf
-  #       - asset: fonts/Montserrat-Thin.ttf
-  #       - asset: fonts/Montserrat-ThinItalic.ttf
-  #   - family: TitilliumWeb
-  #     fonts:
-  #       - asset: fonts/TitilliumWeb-Black.ttf
-  #       - asset: fonts/TitilliumWeb-Bold.ttf
-  #       - asset: fonts/TitilliumWeb-BoldItalic.ttf
-  #       - asset: fonts/TitilliumWeb-ExtraLight.ttf
-  #       - asset: fonts/TitilliumWeb-ExtraLightItalic.ttf
-  #       - asset: fonts/TitilliumWeb-Italic.ttf
-  #       - asset: fonts/TitilliumWeb-Light.ttf
-  #       - asset: fonts/TitilliumWeb-LightItalic.ttf
-  #       - asset: fonts/TitilliumWeb-Regular.ttf
-  #       - asset: fonts/TitilliumWeb-SemiBold.ttf
-  #       - asset: fonts/TitilliumWeb-SemiBoldItalic.ttf
+  fonts: 
+    - family: Montserrat
+      fonts:
+        - asset: fonts/Montserrat-Black.ttf
+        - asset: fonts/Montserrat-BlackItalic.ttf
+        - asset: fonts/Montserrat-Bold.ttf
+        - asset: fonts/Montserrat-BoldItalic.ttf
+        - asset: fonts/Montserrat-ExtraBold.ttf
+        - asset: fonts/Montserrat-ExtraBoldItalic.ttf
+        - asset: fonts/Montserrat-ExtraLight.ttf
+        - asset: fonts/Montserrat-ExtraLightItalic.ttf
+        - asset: fonts/Montserrat-Italic.ttf
+        - asset: fonts/Montserrat-Light.ttf
+        - asset: fonts/Montserrat-LightItalic.ttf
+        - asset: fonts/Montserrat-Medium.ttf
+        - asset: fonts/Montserrat-MediumItalic.ttf
+        - asset: fonts/Montserrat-Regular.ttf
+        - asset: fonts/Montserrat-SemiBold.ttf
+        - asset: fonts/Montserrat-SemiBoldItalic.ttf
+        - asset: fonts/Montserrat-Thin.ttf
+        - asset: fonts/Montserrat-ThinItalic.ttf
+    - family: TitilliumWeb
+      fonts:
+        - asset: fonts/TitilliumWeb-Black.ttf
+        - asset: fonts/TitilliumWeb-Bold.ttf
+        - asset: fonts/TitilliumWeb-BoldItalic.ttf
+        - asset: fonts/TitilliumWeb-ExtraLight.ttf
+        - asset: fonts/TitilliumWeb-ExtraLightItalic.ttf
+        - asset: fonts/TitilliumWeb-Italic.ttf
+        - asset: fonts/TitilliumWeb-Light.ttf
+        - asset: fonts/TitilliumWeb-LightItalic.ttf
+        - asset: fonts/TitilliumWeb-Regular.ttf
+        - asset: fonts/TitilliumWeb-SemiBold.ttf
+        - asset: fonts/TitilliumWeb-SemiBoldItalic.ttf

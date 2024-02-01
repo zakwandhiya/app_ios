@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget emailTextInput() {
     return TextFormField(
       decoration: globalInputDecoration.copyWith(
-        hintText: "Enter Your Username",
+        hintText: "Tambahkan Username",
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       keyboardType: TextInputType.name,
@@ -66,7 +66,7 @@ class _LoginPageState extends State<LoginPage> {
     return TextFormField(
       obscureText: _obsecureText,
       decoration: globalInputDecoration.copyWith(
-        hintText: "Enter Your Password",
+        hintText: "Tambahkan Password",
         suffixIcon: IconButton(
           icon: Icon(_obsecureText ? IconlyLight.hide : IconlyLight.show),
           color: Colors.grey,

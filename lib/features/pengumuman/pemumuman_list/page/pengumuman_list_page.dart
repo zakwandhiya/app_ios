@@ -92,13 +92,18 @@ class _PengumumanListPageState extends State<PengumumanListPage> {
                 recordsModel.imgIcon,
                 height: 50.0,
                 width: 50.0,
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
               ),
             ),
             const SizedBox(width: 20),
-            Text(
-              recordsModel.judul,
-              style: CustomTextTheme.caption.copyWith(color: CustomColors.blackSecondary),
+            Expanded(
+              child: Container(
+                child: Text(
+                  recordsModel.judul,
+                  maxLines: 3,
+                  style: CustomTextTheme.caption.copyWith(color: CustomColors.blackSecondary),
+                ),
+              ),
             ),
           ],
         ),
@@ -135,53 +140,58 @@ class _PengumumanListPageState extends State<PengumumanListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar1(
-        context: context,
-        title: "Pengumuman",
-        canPop: false,
-        actions: [
-          GlobalAppBarActionsButton(
-            iconData: IconlyLight.search,
-            onPressed: () {},
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar1(
+            context: context,
+            title: "Pengumuman",
+            canPop: false,
+            actions: [
+              GlobalAppBarActionsButton(
+                iconData: IconlyLight.search,
+                onPressed: () {},
+              ),
+              GlobalAppBarActionsButton(
+                iconData: Icons.tune_sharp,
+                onPressed: () {},
+              ),
+            ],
           ),
-          GlobalAppBarActionsButton(
-            iconData: Icons.tune_sharp,
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: StreamBuilder<GetPengumumanListState>(
-            initialData: pengumumanListBloc.getInitialPengumumanListState,
-            stream: pengumumanListBloc.getPengumumanListState,
-            builder: (context, snapshot) {
-              if (snapshot.data is GetPengumumanListLoading) {
-                return const LoadingWidget();
-              } else if (snapshot.data is GetPengumumanListClientError) {
-                return const UnderMaintenanceWidget();
-              } else if (snapshot.data is GetPengumumanListInternetError) {
-                return const NoInternetWidget();
-              } else if (snapshot.data is GetPengumumanListSuccess) {
-                GetPengumumanListResponseModel data = (snapshot.data as GetPengumumanListSuccess).getPengumumanListResponseModel;
-                return ListView.builder(
-                  itemCount: data.records.length,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return pengumumamWidget(data.records[index]);
-                  },
-                );
-              }
+          body: RefreshIndicator(
+            key: _refreshIndicatorKey,
+            onRefresh: _refresh,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: StreamBuilder<GetPengumumanListState>(
+                initialData: pengumumanListBloc.getInitialPengumumanListState,
+                stream: pengumumanListBloc.getPengumumanListState,
+                builder: (context, snapshot) {
+                  if (snapshot.data is GetPengumumanListLoading) {
+                    return const LoadingWidget();
+                  } else if (snapshot.data is GetPengumumanListClientError) {
+                    return const UnderMaintenanceWidget();
+                  } else if (snapshot.data is GetPengumumanListInternetError) {
+                    return const NoInternetWidget();
+                  } else if (snapshot.data is GetPengumumanListSuccess) {
+                    GetPengumumanListResponseModel data = (snapshot.data as GetPengumumanListSuccess).getPengumumanListResponseModel;
+                    return ListView.builder(
+                      itemCount: data.records.length,
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return pengumumamWidget(data.records[index]);
+                      },
+                    );
+                  }
 
-              return const UnknownErrorWidget();
-            },
+                  return const UnknownErrorWidget();
+                },
+              ),
+            ),
           ),
         ),
       ),

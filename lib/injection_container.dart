@@ -4,6 +4,10 @@ import 'package:bimo_app/features/chat_group/chat_list/bloc/chat_list_bloc.dart'
 import 'package:bimo_app/features/chat_group/chat_list/repository/chat_list_repository.dart';
 import 'package:bimo_app/features/homepage/bloc/homepage_bloc.dart';
 import 'package:bimo_app/features/homepage/repository/homepage_repository.dart';
+import 'package:bimo_app/features/ipk_sks/ipk_sks_grafik/bloc/ipk_sks_grafik_list_bloc.dart';
+import 'package:bimo_app/features/ipk_sks/ipk_sks_grafik/repository/ipk_sks_grafik_list_repository.dart';
+import 'package:bimo_app/features/ipk_sks/ipk_sks_list/bloc/ipk_sks_list_bloc.dart';
+import 'package:bimo_app/features/ipk_sks/ipk_sks_list/repository/ipk_sks_list_repository.dart';
 import 'package:bimo_app/features/logbook/logbook_edit/bloc/logbook_edit_bloc.dart';
 import 'package:bimo_app/features/logbook/logbook_edit/repository/logbook_edit_repository.dart';
 import 'package:bimo_app/features/logbook/logbook_list/bloc/logbook_list_bloc.dart';
@@ -24,10 +28,14 @@ import 'package:bimo_app/features/profile/profile_detail/bloc/profile_detail_blo
 import 'package:bimo_app/features/profile/profile_detail/repository/profile_detail_repository.dart';
 import 'package:bimo_app/features/profile/profile_edit/bloc/profile_edit_bloc.dart';
 import 'package:bimo_app/features/profile/profile_edit/repository/profile_edit_repository.dart';
+import 'package:bimo_app/features/rancangan/rancangan_grafik/bloc/rancangan_grafik_list_bloc.dart';
+import 'package:bimo_app/features/rancangan/rancangan_grafik/repository/rancangan_grafik_list_repository.dart';
 import 'package:bimo_app/features/rancangan/rancangan_mata_kuliah_edit/bloc/rancangan_mata_kuliah_edit_bloc.dart';
 import 'package:bimo_app/features/rancangan/rancangan_mata_kuliah_edit/repository/rancangan_mata_kuliah_edit_repository.dart';
 import 'package:bimo_app/features/rancangan/rancangan_mata_kuliah_list/bloc/rancangan_mata_kuliah_list_bloc.dart';
 import 'package:bimo_app/features/rancangan/rancangan_mata_kuliah_list/repository/rancangan_mata_kuliah_list_repository.dart';
+import 'package:bimo_app/features/ruangan/gedung_list/bloc/gedung_list_bloc.dart';
+import 'package:bimo_app/features/ruangan/gedung_list/repository/gedung_list_repository.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
@@ -93,6 +101,22 @@ Future<void> init() async {
   //LogbookEdit
   sl.registerFactory(() => LogbookEditBloc(mataKuliahEditRepository: sl()));
   sl.registerLazySingleton(() => LogbookEditRepository(client: sl()));
+
+  //IpkSksList
+  sl.registerFactory(() => IpkSksListBloc(ipkSksListRepository: sl()));
+  sl.registerLazySingleton(() => IpkSksListRepository(client: sl()));
+
+  //IpkSksList
+  sl.registerFactory(() => GedungListBloc(gedungListRepository: sl()));
+  sl.registerLazySingleton(() => GedungListRepository(client: sl()));
+
+  //Ipk Sks Grafik
+  sl.registerFactory(() => IpkSksGrafikListBloc(ipkSksGrafikListRepository: sl()));
+  sl.registerLazySingleton(() => IpkSksGrafikListRepository(client: sl()));
+
+  //Rancangan Grafik
+  sl.registerFactory(() => RancanganGrafikListBloc(rancanganGrafikListRepository: sl()));
+  sl.registerLazySingleton(() => RancanganGrafikListRepository(client: sl()));
 
   /*
   * client

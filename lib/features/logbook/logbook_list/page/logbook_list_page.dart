@@ -175,101 +175,106 @@ class _LogbookListPageState extends State<LogbookListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: "Logbook",
-        subtitle: "Form PA-03",
-        canPop: true,
-        // actions: [
-        //   SizedBox(
-        //     height: 42,
-        //     child: TextButton(
-        //       style: TextButton.styleFrom(
-        //         textStyle: CustomTextTheme.button.copyWith(color: CustomColors.blueSecondary),
-        //       ),
-        //       onPressed: _navigateToMilestoneEdit,
-        //       child: const Text("Update"),
-        //     ),
-        //   ),
-        // ],
-      ),
-      body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: StreamBuilder<GetLogbookListState>(
-            initialData: mataKuliahListBloc.getInitialLogbookListState,
-            stream: mataKuliahListBloc.getLogbookListState,
-            builder: (context, snapshot) {
-              if (snapshot.data is GetLogbookListLoading) {
-                return const LoadingWidget();
-              } else if (snapshot.data is GetLogbookListClientError) {
-                return const UnderMaintenanceWidget();
-              } else if (snapshot.data is GetLogbookListEmpty) {
-                return Container(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 16),
-                        decoration: customShadow,
-                        child: Card(
-                          elevation: 0,
-                          margin: const EdgeInsets.all(0),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  "assets/daftar_riwayat.png",
-                                  width: 100,
-                                  fit: BoxFit.fitWidth,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: "Logbook",
+            subtitle: "Form PA-03",
+            canPop: true,
+            // actions: [
+            //   SizedBox(
+            //     height: 42,
+            //     child: TextButton(
+            //       style: TextButton.styleFrom(
+            //         textStyle: CustomTextTheme.button.copyWith(color: CustomColors.blueSecondary),
+            //       ),
+            //       onPressed: _navigateToMilestoneEdit,
+            //       child: const Text("Update"),
+            //     ),
+            //   ),
+            // ],
+          ),
+          body: RefreshIndicator(
+            key: _refreshIndicatorKey,
+            onRefresh: _refresh,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: StreamBuilder<GetLogbookListState>(
+                initialData: mataKuliahListBloc.getInitialLogbookListState,
+                stream: mataKuliahListBloc.getLogbookListState,
+                builder: (context, snapshot) {
+                  if (snapshot.data is GetLogbookListLoading) {
+                    return const LoadingWidget();
+                  } else if (snapshot.data is GetLogbookListClientError) {
+                    return const UnderMaintenanceWidget();
+                  } else if (snapshot.data is GetLogbookListEmpty) {
+                    return Container(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 16),
+                            decoration: customShadow,
+                            child: Card(
+                              elevation: 0,
+                              margin: const EdgeInsets.all(0),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/daftar_riwayat.png",
+                                      width: 100,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                    const Text(
+                                      "Anda belum memprogram mata kuliah di semsetrer 8",
+                                      textAlign: TextAlign.center,
+                                      maxLines: 3,
+                                    )
+                                  ],
                                 ),
-                                const Text(
-                                  "Anda belum memprogram mata kuliah di semsetrer 8",
-                                  textAlign: TextAlign.center,
-                                  maxLines: 3,
-                                )
-                              ],
+                              ),
                             ),
                           ),
-                        ),
+                          const SizedBox(height: 25),
+                          addLogbookButon(),
+                        ],
                       ),
-                      const SizedBox(height: 25),
-                      addLogbookButon(),
-                    ],
-                  ),
-                );
-              } else if (snapshot.data is GetLogbookListInternetError) {
-                return const NoInternetWidget();
-              } else if (snapshot.data is GetLogbookListSuccess) {
-                GetLogbookListResponseModel data = (snapshot.data as GetLogbookListSuccess).getLogbookListResponseModel;
-                return Container(
-                  padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ListView.builder(
-                        itemCount: data.records.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return pengumumamWidget(data.records[index]);
-                        },
+                    );
+                  } else if (snapshot.data is GetLogbookListInternetError) {
+                    return const NoInternetWidget();
+                  } else if (snapshot.data is GetLogbookListSuccess) {
+                    GetLogbookListResponseModel data = (snapshot.data as GetLogbookListSuccess).getLogbookListResponseModel;
+                    return Container(
+                      padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ListView.builder(
+                            itemCount: data.records.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return pengumumamWidget(data.records[index]);
+                            },
+                          ),
+                          const SizedBox(height: 4),
+                          addLogbookButon(),
+                        ],
                       ),
-                      const SizedBox(height: 4),
-                      addLogbookButon(),
-                    ],
-                  ),
-                );
-              }
+                    );
+                  }
 
-              return const UnknownErrorWidget();
-            },
+                  return const UnknownErrorWidget();
+                },
+              ),
+            ),
           ),
         ),
       ),

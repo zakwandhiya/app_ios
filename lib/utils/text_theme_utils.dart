@@ -129,7 +129,7 @@ class CustomTextTheme {
         fontStyle: FontStyle.normal,
         fontWeight: FontWeight.w400,
         fontFamily: "Montserrat",
-        height: 12 / 12,
+        // height: 16 / 12,
         letterSpacing: 0.4,
       );
 

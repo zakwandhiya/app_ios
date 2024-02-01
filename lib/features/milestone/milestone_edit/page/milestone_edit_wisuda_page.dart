@@ -1,6 +1,7 @@
 import 'package:bimo_app/features/milestone/milestone_detail/model/get_milestone_detail_model.dart';
 import 'package:bimo_app/features/milestone/milestone_edit/bloc/milestone_edit_bloc.dart';
 import 'package:bimo_app/features/milestone/milestone_edit/bloc/milestone_edit_state.dart';
+import 'package:bimo_app/features/milestone/milestone_edit/page/indicator_widget.dart';
 import 'package:bimo_app/global_widget/global_app_bar.dart';
 import 'package:bimo_app/global_widget/global_dialog.dart';
 import 'package:bimo_app/global_widget/input_decoration.dart';
@@ -45,8 +46,8 @@ class _MilestoneEditWisudaPageState extends State<MilestoneEditWisudaPage> {
       _formKey.currentState!.save();
       showBimoConfirmDialog(
         context: context,
-        title: "Input Biodata Mahasiswa",
-        body: "Apakah anda yakin ingin menambahkan data pada biodata mahasiswa?",
+        title: "Input Target Milestone",
+        body: "Apakah anda yakin ingin menambahkan data pada target milestone perkuliahan?",
         callback: sendSubmitRequest,
       );
     }
@@ -79,7 +80,7 @@ class _MilestoneEditWisudaPageState extends State<MilestoneEditWisudaPage> {
         const SizedBox(height: 9),
         TextFormField(
           decoration: globalInputDecoration.copyWith(
-            hintText: "Enter Your $label",
+            hintText: "Tambahkan $label",
           ),
           initialValue: initialValue,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -108,40 +109,49 @@ class _MilestoneEditWisudaPageState extends State<MilestoneEditWisudaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: "Target Wisuda",
-        subtitle: "Form PA-01",
-        canPop: true,
-        actions: [
-          GlobalAppBarActionsButton(
-            iconData: Icons.check,
-            onPressed: submitProfileEditResponseModel,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: "Target Wisuda",
+            subtitle: "Form PA-01",
+            canPop: true,
+            actions: [
+              GlobalAppBarActionsButton(
+                iconData: Icons.check,
+                onPressed: submitProfileEditResponseModel,
+              ),
+            ],
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  "assets/target_wisuda.png",
-                  width: MediaQuery.of(context).size.width - 100,
-                  fit: BoxFit.fitWidth,
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Form(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IndicatorWidget(number: 4),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Image.asset(
+                      "assets/target_wisuda.png",
+                      width: MediaQuery.of(context).size.width - 100,
+                      fit: BoxFit.fitWidth,
+                    ),
+                    inputFieldConstruct(
+                        label: "Pelaksanaan",
+                        initialValue: widget.milestoneDetailModel.targetWisudaPelaksanaan,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.milestoneDetailModel.targetWisudaPelaksanaan = value!]),
+                  ],
                 ),
-                inputFieldConstruct(
-                    label: "Pelaksanaan",
-                    initialValue: widget.milestoneDetailModel.targetWisudaPelaksanaan,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.milestoneDetailModel.targetWisudaPelaksanaan = value!]),
-              ],
+              ),
             ),
           ),
         ),

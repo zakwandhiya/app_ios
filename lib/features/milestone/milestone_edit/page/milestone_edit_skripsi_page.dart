@@ -1,6 +1,7 @@
 import 'package:bimo_app/features/milestone/milestone_detail/model/get_milestone_detail_model.dart';
 import 'package:bimo_app/features/milestone/milestone_edit/bloc/milestone_edit_bloc.dart';
 import 'package:bimo_app/features/milestone/milestone_edit/bloc/milestone_edit_state.dart';
+import 'package:bimo_app/features/milestone/milestone_edit/page/indicator_widget.dart';
 import 'package:bimo_app/features/milestone/milestone_edit/page/milestone_edit_wisuda_page.dart';
 import 'package:bimo_app/global_widget/global_app_bar.dart';
 import 'package:bimo_app/global_widget/input_decoration.dart';
@@ -91,7 +92,7 @@ class _MilestoneEditSkripsiPageState extends State<MilestoneEditSkripsiPage> {
         const SizedBox(height: 9),
         TextFormField(
           decoration: globalInputDecoration.copyWith(
-            hintText: "Enter Your $label",
+            hintText: "Tambahkan $label",
           ),
           initialValue: initialValue,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -120,55 +121,64 @@ class _MilestoneEditSkripsiPageState extends State<MilestoneEditSkripsiPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: "Target Skripsi",
-        subtitle: "Form PA-01",
-        canPop: true,
-        actions: [
-          GlobalAppBarActionsButton(
-            iconData: Icons.check,
-            onPressed: submitProfileEditResponseModel,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: "Target Skripsi",
+            subtitle: "Form PA-01",
+            canPop: true,
+            actions: [
+              GlobalAppBarActionsButton(
+                iconData: Icons.check,
+                onPressed: submitProfileEditResponseModel,
+              ),
+            ],
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Image.asset(
-                  "assets/target_skripsi.png",
-                  width: MediaQuery.of(context).size.width - 100,
-                  fit: BoxFit.fitWidth,
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Form(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IndicatorWidget(number: 3),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Image.asset(
+                      "assets/target_skripsi.png",
+                      width: MediaQuery.of(context).size.width - 100,
+                      fit: BoxFit.fitWidth,
+                    ),
+                    inputFieldConstruct(
+                        label: "Pra-Proposal",
+                        initialValue: widget.milestoneDetailModel.targetSkripsiPraproposal,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.milestoneDetailModel.targetSkripsiPraproposal = value!]),
+                    inputFieldConstruct(
+                        label: "Proposal",
+                        initialValue: widget.milestoneDetailModel.targetSkripsiProposal,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.milestoneDetailModel.targetSkripsiProposal = value!]),
+                    inputFieldConstruct(
+                        label: "Pengerjaan",
+                        initialValue: widget.milestoneDetailModel.targetSkripsiPengerjaan,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.milestoneDetailModel.targetSkripsiPengerjaan = value!]),
+                    inputFieldConstruct(
+                        label: "Semhas/Sidang",
+                        initialValue: widget.milestoneDetailModel.targetSkripsiSemhasSidang,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.milestoneDetailModel.targetSkripsiSemhasSidang = value!]),
+                  ],
                 ),
-                inputFieldConstruct(
-                    label: "Pra-Proposal",
-                    initialValue: widget.milestoneDetailModel.targetSkripsiPraproposal,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.milestoneDetailModel.targetSkripsiPraproposal = value!]),
-                inputFieldConstruct(
-                    label: "Proposal",
-                    initialValue: widget.milestoneDetailModel.targetSkripsiProposal,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.milestoneDetailModel.targetSkripsiProposal = value!]),
-                inputFieldConstruct(
-                    label: "Pengerjaan",
-                    initialValue: widget.milestoneDetailModel.targetSkripsiPengerjaan,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.milestoneDetailModel.targetSkripsiPengerjaan = value!]),
-                inputFieldConstruct(
-                    label: "Semhas/Sidang",
-                    initialValue: widget.milestoneDetailModel.targetSkripsiSemhasSidang,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.milestoneDetailModel.targetSkripsiSemhasSidang = value!]),
-              ],
+              ),
             ),
           ),
         ),

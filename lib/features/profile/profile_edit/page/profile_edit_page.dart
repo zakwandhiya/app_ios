@@ -79,7 +79,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
         const SizedBox(height: 9),
         TextFormField(
           decoration: globalInputDecoration.copyWith(
-            hintText: "Enter Your $label",
+            hintText: "Tambahkan $label",
           ),
           initialValue: initialValue,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -108,65 +108,70 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: "Biodata Mahasiswa",
-        subtitle: "Form PA-00",
-        canPop: true,
-        actions: [
-          GlobalAppBarActionsButton(
-            iconData: Icons.check,
-            onPressed: submitProfileEditResponseModel,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: "Biodata Mahasiswa",
+            subtitle: "Form PA-00",
+            canPop: true,
+            actions: [
+              GlobalAppBarActionsButton(
+                iconData: Icons.check,
+                onPressed: submitProfileEditResponseModel,
+              ),
+            ],
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                inputFieldConstruct(
-                    label: "Email",
-                    initialValue: widget.profileDetailModel.email,
-                    textInputType: TextInputType.emailAddress,
-                    onSaved: (value) => [widget.profileDetailModel.email = value!]),
-                inputFieldConstruct(
-                    label: "Email Alternaif",
-                    initialValue: widget.profileDetailModel.emailAlternatif,
-                    textInputType: TextInputType.emailAddress,
-                    onSaved: (value) => [widget.profileDetailModel.emailAlternatif = value!]),
-                inputFieldConstruct(
-                    label: "Nomor HP",
-                    initialValue: widget.profileDetailModel.nomorHp,
-                    textInputType: TextInputType.number,
-                    onSaved: (value) => [widget.profileDetailModel.nomorHp = value!]),
-                inputFieldConstruct(
-                    label: "NIK/NIP",
-                    initialValue: widget.profileDetailModel.nikNip,
-                    textInputType: TextInputType.number,
-                    onSaved: (value) => [widget.profileDetailModel.nikNip = value!]),
-                inputFieldConstruct(
-                    label: "Alamat Malang",
-                    initialValue: widget.profileDetailModel.alamatMalang,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.profileDetailModel.alamatMalang = value!]),
-                inputFieldConstruct(
-                    label: "Alamat Asal",
-                    initialValue: widget.profileDetailModel.alamatAsal,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.profileDetailModel.alamatAsal = value!]),
-                inputFieldConstruct(
-                    label: "Hobby",
-                    initialValue: widget.profileDetailModel.hobby,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.profileDetailModel.hobby = value!]),
-              ],
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Form(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputFieldConstruct(
+                        label: "Email",
+                        initialValue: widget.profileDetailModel.email,
+                        textInputType: TextInputType.emailAddress,
+                        onSaved: (value) => [widget.profileDetailModel.email = value!]),
+                    inputFieldConstruct(
+                        label: "Email Alternaif",
+                        initialValue: widget.profileDetailModel.emailAlternatif,
+                        textInputType: TextInputType.emailAddress,
+                        onSaved: (value) => [widget.profileDetailModel.emailAlternatif = value!]),
+                    inputFieldConstruct(
+                        label: "Nomor HP",
+                        initialValue: widget.profileDetailModel.nomorHp,
+                        textInputType: TextInputType.number,
+                        onSaved: (value) => [widget.profileDetailModel.nomorHp = value!]),
+                    inputFieldConstruct(
+                        label: "NIK/NIP",
+                        initialValue: widget.profileDetailModel.nikNip,
+                        textInputType: TextInputType.number,
+                        onSaved: (value) => [widget.profileDetailModel.nikNip = value!]),
+                    inputFieldConstruct(
+                        label: "Alamat Malang",
+                        initialValue: widget.profileDetailModel.alamatMalang,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.profileDetailModel.alamatMalang = value!]),
+                    inputFieldConstruct(
+                        label: "Alamat Asal",
+                        initialValue: widget.profileDetailModel.alamatAsal,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.profileDetailModel.alamatAsal = value!]),
+                    inputFieldConstruct(
+                        label: "Hobby",
+                        initialValue: widget.profileDetailModel.hobby,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.profileDetailModel.hobby = value!]),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

@@ -102,150 +102,155 @@ class _ProfileDetailPageState extends State<ProfileDetailPage> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return Scaffold(
-      key: _scaffoldKey,
-      backgroundColor: Colors.white,
-      appBar: GlobalAppBar1(
-        context: context,
-        title: "Profil",
-        canPop: false,
-        actions: [
-          GlobalAppBarActionsButton(
-            iconData: Icons.more_vert,
-            onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('menu')),
-              );
-            },
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: Colors.white,
+          appBar: GlobalAppBar1(
+            context: context,
+            title: "Profil",
+            canPop: false,
+            actions: [
+              GlobalAppBarActionsButton(
+                iconData: Icons.more_vert,
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('menu')),
+                  );
+                },
+              ),
+            ],
           ),
-        ],
-      ),
-      body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: StreamBuilder<GetProfileDetailState>(
-            initialData: profileDetailBloc.getInitialProfileDetailState,
-            stream: profileDetailBloc.getProfileDetailState,
-            builder: (context, snapshot) {
-              if (snapshot.data is GetProfileDetailLoading) {
-                return const LoadingWidget();
-              } else if (snapshot.data is GetProfileDetailClientError) {
-                return const UnderMaintenanceWidget();
-              } else if (snapshot.data is GetProfileDetailSuccess) {
-                GetProfileDetailResponseModel data = (snapshot.data as GetProfileDetailSuccess).getProfileDetailResponseModel;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    profileDetailUpper(data),
-                    profileEditBar(
-                      text: "Biodata Mahasiswa",
-                      width: width,
-                      onPressed: () {
-                        Navigator.of(context)
-                            .push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => ProfileEditPage(
-                              profileDetailModel: data,
-                            ),
+          body: RefreshIndicator(
+            key: _refreshIndicatorKey,
+            onRefresh: _refresh,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: StreamBuilder<GetProfileDetailState>(
+                initialData: profileDetailBloc.getInitialProfileDetailState,
+                stream: profileDetailBloc.getProfileDetailState,
+                builder: (context, snapshot) {
+                  if (snapshot.data is GetProfileDetailLoading) {
+                    return const LoadingWidget();
+                  } else if (snapshot.data is GetProfileDetailClientError) {
+                    return const UnderMaintenanceWidget();
+                  } else if (snapshot.data is GetProfileDetailSuccess) {
+                    GetProfileDetailResponseModel data = (snapshot.data as GetProfileDetailSuccess).getProfileDetailResponseModel;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        profileDetailUpper(data),
+                        profileEditBar(
+                          text: "Biodata Mahasiswa",
+                          width: width,
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => ProfileEditPage(
+                                  profileDetailModel: data,
+                                ),
+                              ),
+                            )
+                                .then((value) {
+                              if (value != null && value) {
+                                _refresh();
+                                _showSnackbar("Update Data Berhasil");
+                              }
+                            });
+                          },
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(top: 12, bottom: 4, left: 16, right: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(width: width),
+                              lineConstruct(label: "Email", value: data.email),
+                              lineConstruct(label: "Email Alternaif", value: data.emailAlternatif),
+                              lineConstruct(label: "Nomor HP", value: data.nomorHp),
+                              lineConstruct(label: "NIK/NIP", value: data.nikNip),
+                              lineConstruct(label: "Alamat Malang", value: data.alamatMalang),
+                              lineConstruct(label: "Alamat Asal", value: data.alamatAsal),
+                              lineConstruct(label: "Hobby", value: data.hobby),
+                            ],
                           ),
-                        )
-                            .then((value) {
-                          if (value != null && value) {
-                            _refresh();
-                            _showSnackbar("Update Data Berhasil");
-                          }
-                        });
-                      },
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(top: 12, bottom: 4, left: 16, right: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(width: width),
-                          lineConstruct(label: "Email", value: data.email),
-                          lineConstruct(label: "Email Alternaif", value: data.emailAlternatif),
-                          lineConstruct(label: "Nomor HP", value: data.nomorHp),
-                          lineConstruct(label: "NIK/NIP", value: data.nikNip),
-                          lineConstruct(label: "Alamat Malang", value: data.alamatMalang),
-                          lineConstruct(label: "Alamat Asal", value: data.alamatAsal),
-                          lineConstruct(label: "Hobby", value: data.hobby),
-                        ],
-                      ),
-                    ),
-                    profileEditBar(
-                      text: "Data Orang Tua/Wali",
-                      width: width,
-                      onPressed: () {
-                        Navigator.of(context)
-                            .push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => ProfileEditGuardianPage(
-                              profileDetailModel: data,
-                            ),
+                        ),
+                        profileEditBar(
+                          text: "Data Orang Tua/Wali",
+                          width: width,
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => ProfileEditGuardianPage(
+                                  profileDetailModel: data,
+                                ),
+                              ),
+                            )
+                                .then((value) {
+                              if (value != null && value) {
+                                _refresh();
+                                _showSnackbar("Update Data Berhasil");
+                              }
+                            });
+                          },
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(top: 12, bottom: 4, left: 16, right: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(width: width),
+                              lineConstruct(label: "Nama Orang Tua/Wali", value: data.namaOrangTuaWali),
+                              lineConstruct(label: "Email Orang Tua/Wali", value: data.emailOrangTuaWali),
+                              lineConstruct(label: "Nomor HP Orang Tua/Wali", value: data.nomorHpOrangTuaWali),
+                              lineConstruct(label: "Alamat Orang Tua/Wali", value: data.alamatOrangTua),
+                            ],
                           ),
-                        )
-                            .then((value) {
-                          if (value != null && value) {
-                            _refresh();
-                            _showSnackbar("Update Data Berhasil");
-                          }
-                        });
-                      },
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(top: 12, bottom: 4, left: 16, right: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(width: width),
-                          lineConstruct(label: "Nama Orang Tua/Wali", value: data.namaOrangTuaWali),
-                          lineConstruct(label: "Email Orang Tua/Wali", value: data.emailOrangTuaWali),
-                          lineConstruct(label: "Nomor HP Orang Tua/Wali", value: data.nomorHpOrangTuaWali),
-                          lineConstruct(label: "Alamat Orang Tua/Wali", value: data.alamatOrangTua),
-                        ],
-                      ),
-                    ),
-                    profileEditBar(
-                      text: "Media Sosial",
-                      width: width,
-                      onPressed: () {
-                        Navigator.of(context)
-                            .push(
-                          MaterialPageRoute(
-                            builder: (BuildContext context) => ProfileEditSocmedPage(
-                              profileDetailModel: data,
-                            ),
+                        ),
+                        profileEditBar(
+                          text: "Media Sosial",
+                          width: width,
+                          onPressed: () {
+                            Navigator.of(context)
+                                .push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) => ProfileEditSocmedPage(
+                                  profileDetailModel: data,
+                                ),
+                              ),
+                            )
+                                .then((value) {
+                              if (value != null && value) {
+                                _refresh();
+                                _showSnackbar("Update Data Berhasil");
+                              }
+                            });
+                          },
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(top: 12, bottom: 4, left: 16, right: 16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(width: width),
+                              lineConstruct(label: "Facebook ID", value: data.facebookId),
+                              lineConstruct(label: "Instagram ID", value: data.instagramId),
+                              lineConstruct(label: "Line ID", value: data.lineId),
+                            ],
                           ),
-                        )
-                            .then((value) {
-                          if (value != null && value) {
-                            _refresh();
-                            _showSnackbar("Update Data Berhasil");
-                          }
-                        });
-                      },
-                    ),
-                    Container(
-                      padding: const EdgeInsets.only(top: 12, bottom: 4, left: 16, right: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(width: width),
-                          lineConstruct(label: "Facebook ID", value: data.facebookId),
-                          lineConstruct(label: "Instagram ID", value: data.instagramId),
-                          lineConstruct(label: "Line ID", value: data.lineId),
-                        ],
-                      ),
-                    ),
-                  ],
-                );
-              }
+                        ),
+                      ],
+                    );
+                  }
 
-              return const UnknownErrorWidget();
-            },
+                  return const UnknownErrorWidget();
+                },
+              ),
+            ),
           ),
         ),
       ),

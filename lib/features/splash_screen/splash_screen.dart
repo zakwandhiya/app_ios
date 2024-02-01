@@ -29,7 +29,6 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         ),
       );
     } else {
-      print("homepage");
       Navigator.push(
         context,
         MaterialPageRoute(

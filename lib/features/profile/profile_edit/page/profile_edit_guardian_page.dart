@@ -79,7 +79,7 @@ class _ProfileEditGuardianPageState extends State<ProfileEditGuardianPage> {
         const SizedBox(height: 9),
         TextFormField(
           decoration: globalInputDecoration.copyWith(
-            hintText: "Enter Your $label",
+            hintText: "Tambahkan $label",
           ),
           initialValue: initialValue,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -108,50 +108,55 @@ class _ProfileEditGuardianPageState extends State<ProfileEditGuardianPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: "Data Orang Tua",
-        subtitle: "Form PA-00",
-        canPop: true,
-        actions: [
-          GlobalAppBarActionsButton(
-            iconData: Icons.check,
-            onPressed: submitProfileEditResponseModel,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: "Data Orang Tua",
+            subtitle: "Form PA-00",
+            canPop: true,
+            actions: [
+              GlobalAppBarActionsButton(
+                iconData: Icons.check,
+                onPressed: submitProfileEditResponseModel,
+              ),
+            ],
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                inputFieldConstruct(
-                    label: "Nama Orang Tua/Wali",
-                    initialValue: widget.profileDetailModel.namaOrangTuaWali,
-                    textInputType: TextInputType.emailAddress,
-                    onSaved: (value) => [widget.profileDetailModel.namaOrangTuaWali = value!]),
-                inputFieldConstruct(
-                    label: "Email Orang Tua/Wali",
-                    initialValue: widget.profileDetailModel.emailOrangTuaWali,
-                    textInputType: TextInputType.emailAddress,
-                    onSaved: (value) => [widget.profileDetailModel.emailOrangTuaWali = value!]),
-                inputFieldConstruct(
-                    label: "Nomor Hp Orang Tua/Wali",
-                    initialValue: widget.profileDetailModel.nomorHpOrangTuaWali,
-                    textInputType: TextInputType.emailAddress,
-                    onSaved: (value) => [widget.profileDetailModel.nomorHpOrangTuaWali = value!]),
-                inputFieldConstruct(
-                    label: "Alamat Orang Tua",
-                    initialValue: widget.profileDetailModel.alamatOrangTua,
-                    textInputType: TextInputType.emailAddress,
-                    onSaved: (value) => [widget.profileDetailModel.alamatOrangTua = value!]),
-              ],
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Form(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputFieldConstruct(
+                        label: "Nama Orang Tua/Wali",
+                        initialValue: widget.profileDetailModel.namaOrangTuaWali,
+                        textInputType: TextInputType.emailAddress,
+                        onSaved: (value) => [widget.profileDetailModel.namaOrangTuaWali = value!]),
+                    inputFieldConstruct(
+                        label: "Email Orang Tua/Wali",
+                        initialValue: widget.profileDetailModel.emailOrangTuaWali,
+                        textInputType: TextInputType.emailAddress,
+                        onSaved: (value) => [widget.profileDetailModel.emailOrangTuaWali = value!]),
+                    inputFieldConstruct(
+                        label: "Nomor Hp Orang Tua/Wali",
+                        initialValue: widget.profileDetailModel.nomorHpOrangTuaWali,
+                        textInputType: TextInputType.emailAddress,
+                        onSaved: (value) => [widget.profileDetailModel.nomorHpOrangTuaWali = value!]),
+                    inputFieldConstruct(
+                        label: "Alamat Orang Tua",
+                        initialValue: widget.profileDetailModel.alamatOrangTua,
+                        textInputType: TextInputType.emailAddress,
+                        onSaved: (value) => [widget.profileDetailModel.alamatOrangTua = value!]),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

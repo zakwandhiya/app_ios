@@ -1,0 +1,31 @@
+{
+  "records": [
+      {
+          "id": 1,
+          "date_created": "2024-01-30 23:59:13",
+          "date_modified": "2024-01-30 23:59:13",
+          "nama": "Wayan Firdaus Mahmudy, S.Si., M.T., Ph.D.",
+          "ruangan": "R. F7.6",
+          "nik": "-",
+          "hp": "-"
+      },
+      {
+          "id": 2,
+          "date_created": "2024-01-30 23:59:13",
+          "date_modified": "2024-01-30 23:59:13",
+          "nama": "Herman Tolle, Dr.Eng., S.T., M.T.",
+          "ruangan": "R. F7.1",
+          "nik": "-",
+          "hp": "-"
+      },
+      {
+          "id": 3,
+          "date_created": "2024-01-31 00:01:18",
+          "date_modified": "2024-01-31 00:01:18",
+          "nama": "Primantara Hari Trisnawan, Ir., M.Sc. ",
+          "ruangan": "R. F5.6",
+          "nik": "-",
+          "hp": "-"
+      }
+  ]
+}

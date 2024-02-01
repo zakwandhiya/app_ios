@@ -79,7 +79,7 @@ class _ProfileEditSocmedPageState extends State<ProfileEditSocmedPage> {
         const SizedBox(height: 9),
         TextFormField(
           decoration: globalInputDecoration.copyWith(
-            hintText: "Enter Your $label",
+            hintText: "Tambahkan $label",
           ),
           initialValue: initialValue,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -108,45 +108,50 @@ class _ProfileEditSocmedPageState extends State<ProfileEditSocmedPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: "Media Sosial",
-        subtitle: "Form PA-00",
-        canPop: true,
-        actions: [
-          GlobalAppBarActionsButton(
-            iconData: Icons.check,
-            onPressed: submitProfileEditResponseModel,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: "Media Sosial",
+            subtitle: "Form PA-00",
+            canPop: true,
+            actions: [
+              GlobalAppBarActionsButton(
+                iconData: Icons.check,
+                onPressed: submitProfileEditResponseModel,
+              ),
+            ],
           ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                inputFieldConstruct(
-                    label: "Facebook ID",
-                    initialValue: widget.profileDetailModel.facebookId,
-                    textInputType: TextInputType.emailAddress,
-                    onSaved: (value) => [widget.profileDetailModel.facebookId = value!]),
-                inputFieldConstruct(
-                    label: "Instagram ID",
-                    initialValue: widget.profileDetailModel.instagramId,
-                    textInputType: TextInputType.emailAddress,
-                    onSaved: (value) => [widget.profileDetailModel.instagramId = value!]),
-                inputFieldConstruct(
-                    label: "Line ID",
-                    initialValue: widget.profileDetailModel.lineId,
-                    textInputType: TextInputType.number,
-                    onSaved: (value) => [widget.profileDetailModel.lineId = value!]),
-              ],
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Form(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputFieldConstruct(
+                        label: "Facebook ID",
+                        initialValue: widget.profileDetailModel.facebookId,
+                        textInputType: TextInputType.emailAddress,
+                        onSaved: (value) => [widget.profileDetailModel.facebookId = value!]),
+                    inputFieldConstruct(
+                        label: "Instagram ID",
+                        initialValue: widget.profileDetailModel.instagramId,
+                        textInputType: TextInputType.emailAddress,
+                        onSaved: (value) => [widget.profileDetailModel.instagramId = value!]),
+                    inputFieldConstruct(
+                        label: "Line ID",
+                        initialValue: widget.profileDetailModel.lineId,
+                        textInputType: TextInputType.number,
+                        onSaved: (value) => [widget.profileDetailModel.lineId = value!]),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

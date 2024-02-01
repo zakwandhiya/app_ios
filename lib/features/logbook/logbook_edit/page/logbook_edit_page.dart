@@ -105,7 +105,7 @@ class _LogbookEditPageState extends State<LogbookEditPage> {
         const SizedBox(height: 9),
         TextFormField(
           decoration: globalInputDecoration.copyWith(
-            hintText: "Enter Your $label",
+            hintText: "Tambahkan $label",
           ),
           initialValue: initialValue,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -149,62 +149,67 @@ class _LogbookEditPageState extends State<LogbookEditPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: widget.add ? "Tambah Logbook" : "Ubah Logbook",
-        subtitle: "Form PA-02",
-        canPop: true,
-        actions: widget.add
-            ? [
-                GlobalAppBarActionsButton(
-                  iconData: Icons.check,
-                  onPressed: addProfileEditResponseModel,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: widget.add ? "Tambah Logbook" : "Ubah Logbook",
+            subtitle: "Form PA-02",
+            canPop: true,
+            actions: widget.add
+                ? [
+                    GlobalAppBarActionsButton(
+                      iconData: Icons.check,
+                      onPressed: addProfileEditResponseModel,
+                    ),
+                  ]
+                : [
+                    GlobalAppBarActionsButton(
+                      iconData: Icons.check,
+                      onPressed: updateProfileEditResponseModel,
+                    ),
+                  ],
+          ),
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Form(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputFieldConstruct(
+                        label: "Dosen Pembimbing Akademik",
+                        initialValue: widget.logbookDetailModel.dosenPembimbing,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.logbookDetailModel.dosenPembimbing = value!]),
+                    inputFieldConstruct(
+                        label: "Keperluan",
+                        initialValue: widget.logbookDetailModel.keperluan,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.logbookDetailModel.keperluan = value!]),
+                    inputFieldConstruct(
+                        label: "Keterangan",
+                        initialValue: widget.logbookDetailModel.keterangan,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.logbookDetailModel.keterangan = value!]),
+                    inputFieldConstruct(
+                        label: "Semester",
+                        initialValue: widget.logbookDetailModel.semester,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.logbookDetailModel.semester = value!]),
+                    inputFieldConstruct(
+                        label: "Tanggal Konsultasi",
+                        initialValue: widget.logbookDetailModel.tanggalKonsultasi,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.logbookDetailModel.tanggalKonsultasi = value!]),
+                  ],
                 ),
-              ]
-            : [
-                GlobalAppBarActionsButton(
-                  iconData: Icons.check,
-                  onPressed: updateProfileEditResponseModel,
-                ),
-              ],
-      ),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                inputFieldConstruct(
-                    label: "Dosen Pembimbing Akademik",
-                    initialValue: widget.logbookDetailModel.dosenPembimbing,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.logbookDetailModel.dosenPembimbing = value!]),
-                inputFieldConstruct(
-                    label: "Keperluan",
-                    initialValue: widget.logbookDetailModel.keperluan,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.logbookDetailModel.keperluan = value!]),
-                inputFieldConstruct(
-                    label: "Keterangan",
-                    initialValue: widget.logbookDetailModel.keterangan,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.logbookDetailModel.keterangan = value!]),
-                inputFieldConstruct(
-                    label: "Semester",
-                    initialValue: widget.logbookDetailModel.semester,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.logbookDetailModel.semester = value!]),
-                inputFieldConstruct(
-                    label: "Tanggal Konsultasi",
-                    initialValue: widget.logbookDetailModel.tanggalKonsultasi,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.logbookDetailModel.tanggalKonsultasi = value!]),
-              ],
+              ),
             ),
           ),
         ),

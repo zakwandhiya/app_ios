@@ -1,6 +1,14 @@
+import 'package:bimo_app/chart_playground/line_chart_sample1.dart';
+import 'package:bimo_app/features/eskalasi/eskalasi_page.dart';
+import 'package:bimo_app/features/instruksi/instruksi_page.dart';
+import 'package:bimo_app/features/ipk_sks/ipk_sks_main_page/ipk_sks_main_view.dart';
+import 'package:bimo_app/features/kalender_akademik/kalender_akademik_main_page.dart';
 import 'package:bimo_app/features/logbook/logbook_list/page/logbook_list_page.dart';
+import 'package:bimo_app/features/milestone/milestone_detail/page/milestone_detail_page.dart';
 import 'package:bimo_app/features/portofolio/portofolio_list/page/portofolio_list_page.dart';
+import 'package:bimo_app/features/rancangan/rancangan_main_page/rancangan_main_view.dart';
 import 'package:bimo_app/features/rancangan/rancangan_mata_kuliah_list/page/rancangan_mata_kuliah_list_page.dart';
+import 'package:bimo_app/features/ruangan/ruangan_main_view.dart';
 import 'package:bimo_app/features/splash_screen/splash_screen.dart';
 import 'package:bimo_app/global_widget/bottom_menu.dart';
 import 'package:bimo_app/global_widget/global_rounded_rectangle_border.dart';
@@ -48,6 +56,15 @@ class MyApp extends StatelessWidget {
       ),
       // home: const LogbookListPage(),
       home: const BottomMenu(),
+      // home: const MilestoneDetailPage(),
+      // home: const MilestoneDetailPage(),
+      // home: const RancanganMainPage(),
+      // home: const IpkSksMainPage(),
+      // home: const KalenderAkademikMainPage(),
+      // home: const RuanganMainPage(),
+      // home: LineChartExamle(isShowingMainData: true),
+
+      // home: const EskalasiPage(),
     );
   }
 }

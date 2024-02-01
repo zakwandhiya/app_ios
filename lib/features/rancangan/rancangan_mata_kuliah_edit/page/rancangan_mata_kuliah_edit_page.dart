@@ -85,7 +85,7 @@ class _MataKuliahEditWisudaPageState extends State<MataKuliahEditWisudaPage> {
         const SizedBox(height: 9),
         TextFormField(
           decoration: globalInputDecoration.copyWith(
-            hintText: "Enter Your $label",
+            hintText: "Tambahkan $label",
           ),
           initialValue: initialValue,
           autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -129,52 +129,57 @@ class _MataKuliahEditWisudaPageState extends State<MataKuliahEditWisudaPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: widget.add ? "Tambah Mata Kuliah" : "Ubah Rancangan",
-        subtitle: "Form PA-02",
-        canPop: true,
-        actions: widget.add
-            ? [
-                GlobalAppBarActionsButton(
-                  iconData: Icons.check,
-                  onPressed: submitProfileEditResponseModel,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: widget.add ? "Tambah Mata Kuliah" : "Ubah Rancangan",
+            subtitle: "Form PA-02",
+            canPop: true,
+            actions: widget.add
+                ? [
+                    GlobalAppBarActionsButton(
+                      iconData: Icons.check,
+                      onPressed: submitProfileEditResponseModel,
+                    ),
+                  ]
+                : null,
+          ),
+          body: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Form(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    inputFieldConstruct(
+                        label: "Mata Kuliah",
+                        initialValue: widget.mataKuliahDetailModel.namaMataKuliah,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.mataKuliahDetailModel.namaMataKuliah = value!]),
+                    inputFieldConstruct(
+                        label: "Jumlah SKS",
+                        initialValue: widget.mataKuliahDetailModel.sks > 0 ? widget.mataKuliahDetailModel.sks.toString() : null,
+                        textInputType: TextInputType.number,
+                        onSaved: (value) => [widget.mataKuliahDetailModel.sks = int.parse(value!)]),
+                    inputFieldConstruct(
+                        label: "Mata Kuliah Prasyarat",
+                        initialValue: widget.mataKuliahDetailModel.targetNilai,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.mataKuliahDetailModel.namaMataKuliah = value!]),
+                    inputFieldConstruct(
+                        label: "Target Nilai",
+                        initialValue: widget.mataKuliahDetailModel.namaMataKuliah,
+                        textInputType: TextInputType.text,
+                        onSaved: (value) => [widget.mataKuliahDetailModel.namaMataKuliah = value!]),
+                  ],
                 ),
-              ]
-            : null,
-      ),
-      body: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        child: Form(
-          key: _formKey,
-          child: Container(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                inputFieldConstruct(
-                    label: "Mata Kuliah",
-                    initialValue: widget.mataKuliahDetailModel.namaMataKuliah,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.mataKuliahDetailModel.namaMataKuliah = value!]),
-                inputFieldConstruct(
-                    label: "Jumlah SKS",
-                    initialValue: widget.mataKuliahDetailModel.sks > 0 ? widget.mataKuliahDetailModel.sks.toString() : null,
-                    textInputType: TextInputType.number,
-                    onSaved: (value) => [widget.mataKuliahDetailModel.sks = int.parse(value!)]),
-                inputFieldConstruct(
-                    label: "Mata Kuliah Prasyarat",
-                    initialValue: widget.mataKuliahDetailModel.targetNilai,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.mataKuliahDetailModel.namaMataKuliah = value!]),
-                inputFieldConstruct(
-                    label: "Target Nilai",
-                    initialValue: widget.mataKuliahDetailModel.namaMataKuliah,
-                    textInputType: TextInputType.text,
-                    onSaved: (value) => [widget.mataKuliahDetailModel.namaMataKuliah = value!]),
-              ],
+              ),
             ),
           ),
         ),

@@ -175,101 +175,106 @@ class _PortofolioListPageState extends State<PortofolioListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar2(
-        context: context,
-        title: "Portofolio",
-        subtitle: "Form PA-03",
-        canPop: true,
-        // actions: [
-        //   SizedBox(
-        //     height: 42,
-        //     child: TextButton(
-        //       style: TextButton.styleFrom(
-        //         textStyle: CustomTextTheme.button.copyWith(color: CustomColors.blueSecondary),
-        //       ),
-        //       onPressed: _navigateToMilestoneEdit,
-        //       child: const Text("Update"),
-        //     ),
-        //   ),
-        // ],
-      ),
-      body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: StreamBuilder<GetPortofolioListState>(
-            initialData: portofolioListBloc.getInitialPortofolioListState,
-            stream: portofolioListBloc.getPortofolioListState,
-            builder: (context, snapshot) {
-              if (snapshot.data is GetPortofolioListLoading) {
-                return const LoadingWidget();
-              } else if (snapshot.data is GetPortofolioListClientError) {
-                return const UnderMaintenanceWidget();
-              } else if (snapshot.data is GetPortofolioListEmpty) {
-                return Container(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 16),
-                        decoration: customShadow,
-                        child: Card(
-                          elevation: 0,
-                          margin: const EdgeInsets.all(0),
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  "assets/daftar_riwayat.png",
-                                  width: 100,
-                                  fit: BoxFit.fitWidth,
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar2(
+            context: context,
+            title: "Portofolio",
+            subtitle: "Form PA-03",
+            canPop: true,
+            // actions: [
+            //   SizedBox(
+            //     height: 42,
+            //     child: TextButton(
+            //       style: TextButton.styleFrom(
+            //         textStyle: CustomTextTheme.button.copyWith(color: CustomColors.blueSecondary),
+            //       ),
+            //       onPressed: _navigateToMilestoneEdit,
+            //       child: const Text("Update"),
+            //     ),
+            //   ),
+            // ],
+          ),
+          body: RefreshIndicator(
+            key: _refreshIndicatorKey,
+            onRefresh: _refresh,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: StreamBuilder<GetPortofolioListState>(
+                initialData: portofolioListBloc.getInitialPortofolioListState,
+                stream: portofolioListBloc.getPortofolioListState,
+                builder: (context, snapshot) {
+                  if (snapshot.data is GetPortofolioListLoading) {
+                    return const LoadingWidget();
+                  } else if (snapshot.data is GetPortofolioListClientError) {
+                    return const UnderMaintenanceWidget();
+                  } else if (snapshot.data is GetPortofolioListEmpty) {
+                    return Container(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(bottom: 16),
+                            decoration: customShadow,
+                            child: Card(
+                              elevation: 0,
+                              margin: const EdgeInsets.all(0),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      "assets/daftar_riwayat.png",
+                                      width: 100,
+                                      fit: BoxFit.fitWidth,
+                                    ),
+                                    const Text(
+                                      "Anda belum memprogram portofolio",
+                                      textAlign: TextAlign.center,
+                                      maxLines: 3,
+                                    )
+                                  ],
                                 ),
-                                const Text(
-                                  "Anda belum memprogram portofolio",
-                                  textAlign: TextAlign.center,
-                                  maxLines: 3,
-                                )
-                              ],
+                              ),
                             ),
                           ),
-                        ),
+                          const SizedBox(height: 25),
+                          addPortofolioButon(),
+                        ],
                       ),
-                      const SizedBox(height: 25),
-                      addPortofolioButon(),
-                    ],
-                  ),
-                );
-              } else if (snapshot.data is GetPortofolioListInternetError) {
-                return const NoInternetWidget();
-              } else if (snapshot.data is GetPortofolioListSuccess) {
-                GetPortofolioListResponseModel data = (snapshot.data as GetPortofolioListSuccess).getPortofolioListResponseModel;
-                return Container(
-                  padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      ListView.builder(
-                        itemCount: data.records.length,
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder: (context, index) {
-                          return pengumumamWidget(data.records[index]);
-                        },
+                    );
+                  } else if (snapshot.data is GetPortofolioListInternetError) {
+                    return const NoInternetWidget();
+                  } else if (snapshot.data is GetPortofolioListSuccess) {
+                    GetPortofolioListResponseModel data = (snapshot.data as GetPortofolioListSuccess).getPortofolioListResponseModel;
+                    return Container(
+                      padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          ListView.builder(
+                            itemCount: data.records.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) {
+                              return pengumumamWidget(data.records[index]);
+                            },
+                          ),
+                          const SizedBox(height: 4),
+                          addPortofolioButon(),
+                        ],
                       ),
-                      const SizedBox(height: 4),
-                      addPortofolioButon(),
-                    ],
-                  ),
-                );
-              }
+                    );
+                  }
 
-              return const UnknownErrorWidget();
-            },
+                  return const UnknownErrorWidget();
+                },
+              ),
+            ),
           ),
         ),
       ),

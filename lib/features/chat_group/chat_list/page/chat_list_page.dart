@@ -97,9 +97,19 @@ class _ChatListPageState extends State<ChatListPage> {
               ),
             ),
             const SizedBox(width: 20),
-            Text(
-              recordsModel.name,
-              style: CustomTextTheme.body2.copyWith(color: CustomColors.blackSecondary),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  recordsModel.name,
+                  style: CustomTextTheme.body2.copyWith(color: CustomColors.blackSecondary),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  "Cek",
+                  style: CustomTextTheme.caption.copyWith(color: CustomColors.blackTeritiary),
+                ),
+              ],
             ),
           ],
         ),
@@ -136,53 +146,58 @@ class _ChatListPageState extends State<ChatListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      appBar: GlobalAppBar1(
-        context: context,
-        title: "Chat",
-        canPop: false,
-        actions: [
-          GlobalAppBarActionsButton(
-            iconData: IconlyLight.search,
-            onPressed: () {},
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: GlobalAppBar1(
+            context: context,
+            title: "Chat",
+            canPop: false,
+            actions: [
+              GlobalAppBarActionsButton(
+                iconData: IconlyLight.search,
+                onPressed: () {},
+              ),
+              GlobalAppBarActionsButton(
+                iconData: Icons.tune_sharp,
+                onPressed: () {},
+              ),
+            ],
           ),
-          GlobalAppBarActionsButton(
-            iconData: Icons.tune_sharp,
-            onPressed: () {},
-          ),
-        ],
-      ),
-      body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: StreamBuilder<GetChatListState>(
-            initialData: chatListBloc.getInitialChatListState,
-            stream: chatListBloc.getChatListState,
-            builder: (context, snapshot) {
-              if (snapshot.data is GetChatListLoading) {
-                return const LoadingWidget();
-              } else if (snapshot.data is GetChatListClientError) {
-                return const UnderMaintenanceWidget();
-              } else if (snapshot.data is GetChatListInternetError) {
-                return const NoInternetWidget();
-              } else if (snapshot.data is GetChatListSuccess) {
-                GetChatListResponseModel data = (snapshot.data as GetChatListSuccess).getChatListResponseModel;
-                return ListView.builder(
-                  itemCount: data.records.length,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return chatUserWidget(data.records[index]);
-                  },
-                );
-              }
+          body: RefreshIndicator(
+            key: _refreshIndicatorKey,
+            onRefresh: _refresh,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: StreamBuilder<GetChatListState>(
+                initialData: chatListBloc.getInitialChatListState,
+                stream: chatListBloc.getChatListState,
+                builder: (context, snapshot) {
+                  if (snapshot.data is GetChatListLoading) {
+                    return const LoadingWidget();
+                  } else if (snapshot.data is GetChatListClientError) {
+                    return const UnderMaintenanceWidget();
+                  } else if (snapshot.data is GetChatListInternetError) {
+                    return const NoInternetWidget();
+                  } else if (snapshot.data is GetChatListSuccess) {
+                    GetChatListResponseModel data = (snapshot.data as GetChatListSuccess).getChatListResponseModel;
+                    return ListView.builder(
+                      itemCount: data.records.length,
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return chatUserWidget(data.records[index]);
+                      },
+                    );
+                  }
 
-              return const UnknownErrorWidget();
-            },
+                  return const UnknownErrorWidget();
+                },
+              ),
+            ),
           ),
         ),
       ),

@@ -242,54 +242,59 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      resizeToAvoidBottomInset: true,
-      appBar: GlobalAppBar1(
-        context: context,
-        title: widget.receiver.name,
-        canPop: true,
-        actions: [
-          GlobalAppBarActionsButton(
-            iconData: Icons.more_vert,
-            onPressed: () {},
+    return Container(
+      color: Colors.white,
+      child: SafeArea(
+        child: Scaffold(
+          key: _scaffoldKey,
+          resizeToAvoidBottomInset: true,
+          appBar: GlobalAppBar1(
+            context: context,
+            title: widget.receiver.name,
+            canPop: true,
+            actions: [
+              GlobalAppBarActionsButton(
+                iconData: Icons.more_vert,
+                onPressed: () {},
+              ),
+            ],
           ),
-        ],
-      ),
-      bottomNavigationBar: Padding(
-        padding: MediaQuery.of(context).viewInsets,
-        child: bottomBarWidget(),
-      ),
-      body: RefreshIndicator(
-        key: _refreshIndicatorKey,
-        onRefresh: _refresh,
-        child: SingleChildScrollView(
-          physics: const AlwaysScrollableScrollPhysics(),
-          child: StreamBuilder<GetChatDetailState>(
-            initialData: chatDetailBloc.getInitialChatDetailState,
-            stream: chatDetailBloc.getChatDetailState,
-            builder: (context, snapshot) {
-              if (snapshot.data is GetChatDetailLoading) {
-                return const LoadingWidget();
-              } else if (snapshot.data is GetChatDetailClientError) {
-                return const UnderMaintenanceWidget();
-              } else if (snapshot.data is GetChatDetailInternetError) {
-                return const NoInternetWidget();
-              } else if (snapshot.data is GetChatDetailSuccess) {
-                GetChatDetailResponseModel data = (snapshot.data as GetChatDetailSuccess).getChatDetailResponseModel;
-                return ListView.builder(
-                  itemCount: data.records.length,
-                  shrinkWrap: true,
-                  padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return chatItemWidget(data.records[index]);
-                  },
-                );
-              }
+          bottomNavigationBar: Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: bottomBarWidget(),
+          ),
+          body: RefreshIndicator(
+            key: _refreshIndicatorKey,
+            onRefresh: _refresh,
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: StreamBuilder<GetChatDetailState>(
+                initialData: chatDetailBloc.getInitialChatDetailState,
+                stream: chatDetailBloc.getChatDetailState,
+                builder: (context, snapshot) {
+                  if (snapshot.data is GetChatDetailLoading) {
+                    return const LoadingWidget();
+                  } else if (snapshot.data is GetChatDetailClientError) {
+                    return const UnderMaintenanceWidget();
+                  } else if (snapshot.data is GetChatDetailInternetError) {
+                    return const NoInternetWidget();
+                  } else if (snapshot.data is GetChatDetailSuccess) {
+                    GetChatDetailResponseModel data = (snapshot.data as GetChatDetailSuccess).getChatDetailResponseModel;
+                    return ListView.builder(
+                      itemCount: data.records.length,
+                      shrinkWrap: true,
+                      padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return chatItemWidget(data.records[index]);
+                      },
+                    );
+                  }
 
-              return const UnknownErrorWidget();
-            },
+                  return const UnknownErrorWidget();
+                },
+              ),
+            ),
           ),
         ),
       ),
